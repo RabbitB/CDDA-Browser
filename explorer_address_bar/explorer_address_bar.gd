@@ -10,8 +10,7 @@ onready var AddressLineEdit: LineEdit = $AddressLineEdit as LineEdit
 var path: String setget _set_path, _get_path
 
 onready var _is_ready: bool = true
-var _error: int = OK
-var _target_dir: Directory = Directory.new()
+var _directory: FileSystemItem = FileSystemItem.new()
 
 
 func _set_placeholder_text(new_placeholder: String) -> void:
@@ -44,48 +43,25 @@ func update_path(new_path: String, update_ui_text: bool) -> void:
 
 	if is_path_valid():
 
-		_error = _target_dir.open(self.path)
+		_directory.path = self.path
 
-		if !_error:
+		if _directory.is_valid_directory():
 			BrowseFileDialog.current_dir = self.path
 
 	emit_signal("path_changed", new_path, is_path_valid())
 
 
-func get_directory() -> Directory:
+func get_directory() -> FileSystemItem:
 
-	return _target_dir if is_path_valid() && !_error else null
+	var directory: FileSystemItem = FileSystemItem.new()
+	directory.path = path
 
-
-func get_dir_contents() -> Array:
-
-	var dir_contents: Array = []
-
-	if !is_path_valid() || _error:
-		return dir_contents
-
-	_error = _target_dir.list_dir_begin(true, true)
-
-	if _error:
-		return dir_contents
-
-	var next_item: String = _target_dir.get_next()
-
-	while !next_item.empty():
-
-		var item_info: Dictionary = { "name": next_item, "is_dir": _target_dir.current_is_dir() }
-		dir_contents.append(item_info)
-
-		next_item = _target_dir.get_next()
-
-	_target_dir.list_dir_end()
-
-	return dir_contents
+	return directory if is_path_valid() && directory.is_valid_directory() else null
 
 
 func get_active_path() -> String:
 
-	return _target_dir.get_current_dir()
+	return _directory.path
 
 
 func is_path_valid(a_path: String = "") -> bool:
@@ -93,12 +69,7 @@ func is_path_valid(a_path: String = "") -> bool:
 	if a_path.empty():
 		a_path = self.path
 
-	return _target_dir.dir_exists(a_path) && a_path.is_abs_path()
-
-
-func encountered_error() -> int:
-
-	return _error
+	return _directory.is_directory(a_path) && a_path.is_abs_path()
 
 
 func _on_AddressLineEdit_text_changed(new_text: String) -> void:
@@ -108,10 +79,10 @@ func _on_AddressLineEdit_text_changed(new_text: String) -> void:
 
 func _on_UpDirButton_pressed() -> void:
 
-	if is_path_valid() && !_error:
-		_error = _target_dir.change_dir("..")
+	if is_path_valid() && _directory.is_valid_directory():
+		_directory = _directory.get_parent()
 
-	update_path(_target_dir.get_current_dir(), true)
+	update_path(_directory.path, true)
 
 
 func _on_BrowseButton_pressed() -> void:
