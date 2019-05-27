@@ -32,7 +32,7 @@ func list_all_contents(skip_navigational: bool = false, skip_hidden: bool = fals
 
 	var contents = []
 
-	if !is_directory() || _directory.list_dir_begin(skip_navigational, skip_hidden) != OK:
+	if !_valid_directory || _directory.list_dir_begin(skip_navigational, skip_hidden) != OK:
 
 		Log.error("Failed to read the contents of '%s'", [path])
 		return contents
@@ -51,7 +51,7 @@ func list_files(skip_hidden: bool = false, with_extension: String = "") -> Array
 
 	var contents = []
 
-	if !is_directory() || _directory.list_dir_begin(true, skip_hidden) != OK:
+	if !_valid_directory || _directory.list_dir_begin(true, skip_hidden) != OK:
 
 		Log.error("Failed to read the files stored in '%s'", [path])
 		return contents
@@ -72,7 +72,7 @@ func list_sub_directories(skip_hidden: bool = false) -> Array:
 
 	var contents = []
 
-	if !is_directory() || _directory.list_dir_begin(true, skip_hidden) != OK:
+	if !_valid_directory || _directory.list_dir_begin(true, skip_hidden) != OK:
 
 		Log.error("Failed to read the sub-directories stored in '%s'", [path])
 		return contents
@@ -97,7 +97,7 @@ func get_parent() -> FileSystemItem:
 
 		parent.path = path.get_base_dir()
 
-	elif is_directory():
+	elif _valid_directory:
 
 		parent.path = path
 		parent._change_dir("..")
@@ -109,7 +109,7 @@ func get_child(name: String) -> FileSystemItem:
 
 	var child = _this.new()
 
-	if is_directory():
+	if _valid_directory:
 		child.path = path.plus_file(name)
 
 	return child
@@ -148,12 +148,18 @@ func read_as_json():
 	return result_json.result
 
 
-func is_directory() -> bool:
+func is_directory(a_path: String = "") -> bool:
 
-	return _valid_directory && _directory.dir_exists(path)
+	if a_path.empty():
+		a_path = path
+
+	return _directory.dir_exists(a_path)
 
 
-func is_file() -> bool:
+func is_file(a_path: String = "") -> bool:
 
-	return _directory.file_exists(path)
+	if a_path.empty():
+		a_path = path
+
+	return _directory.file_exists(a_path)
 
