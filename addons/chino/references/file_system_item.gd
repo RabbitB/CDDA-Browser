@@ -100,7 +100,7 @@ func get_parent() -> FileSystemItem:
 	elif _valid_directory:
 
 		parent.path = path
-		parent._change_dir("..")
+		parent._change_directory("..")
 
 	return parent
 
@@ -146,6 +146,11 @@ func read_as_json():
 		return {}
 
 	return result_json.result
+
+
+func is_valid_directory() -> bool:
+
+	return _valid_directory
 
 
 func is_directory(a_path: String = "") -> bool:
