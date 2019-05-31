@@ -53,6 +53,7 @@ func _scan_files_in_dir(directory: FileSystemItem, parent_in_tree: TreeItem, rec
 
 			var new_dir: TreeItem = _FileTree.create_item(parent_in_tree)
 			new_dir.set_text(0, sub_dir)
+			new_dir.set_icon(0, preload("res://file_nav/directory_icon.png"))
 
 			var sub_dir_has_json = _scan_files_in_dir(directory.get_child(sub_dir), new_dir, true, filter)
 
