@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Log",
 "language": "GDScript",
 "path": "res://addons/chino/references/log.gd"
+}, {
+"base": "Reference",
+"class": "TreeItemHelper",
+"language": "GDScript",
+"path": "res://addons/chino/references/tree_item_helper.gd"
 } ]
 _global_script_class_icons={
 "FileSystemItem": "",
-"Log": ""
+"Log": "",
+"TreeItemHelper": ""
 }
 
 [application]
