@@ -1,27 +1,70 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://alien.tres" type="Theme" id=1]
-[ext_resource path="res://browser/browser.gd" type="Script" id=2]
+[ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=3]
 
-[node name="Browser" type="Control"]
+[node name="Browser" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
 theme = ExtResource( 1 )
-script = ExtResource( 2 )
 
-[node name="VSplitContainer" type="VSplitContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ExplorerAddressBar" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 0.0
+margin_right = 794.0
+margin_bottom = 22.0
+placeholder_text = "CDDA Installation Directory"
 
-[node name="Tree" type="Tree" parent="VSplitContainer"]
-margin_right = 800.0
-margin_bottom = 296.0
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+margin_top = 26.0
+margin_right = 794.0
+margin_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="VSplitContainer"]
-margin_top = 304.0
-margin_right = 800.0
-margin_bottom = 600.0
+[node name="LeftSplit" type="VBoxContainer" parent="HSplitContainer"]
+margin_right = 393.0
+margin_bottom = 568.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="HSplitContainer" type="HSplitContainer" parent="HSplitContainer/LeftSplit"]
+margin_right = 393.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FileNav" parent="HSplitContainer/LeftSplit/HSplitContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 192.0
+margin_bottom = 568.0
+_ExplorerAddressBarPath = NodePath("../../../../ExplorerAddressBar")
+
+[node name="FilterTree" type="Tree" parent="HSplitContainer/LeftSplit/HSplitContainer"]
+margin_left = 200.0
+margin_right = 393.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightSplit" type="VBoxContainer" parent="HSplitContainer"]
+margin_left = 401.0
+margin_right = 794.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ResultTree" type="Tree" parent="HSplitContainer/RightSplit"]
+margin_right = 393.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/LeftSplit/HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
