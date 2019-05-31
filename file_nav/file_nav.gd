@@ -2,6 +2,9 @@ extends VBoxContainer
 
 const ExplorerAddressBar: Script = preload("res://explorer_address_bar/explorer_address_bar.gd")
 
+signal files_updated
+signal file_selected(selected_file)
+
 export (NodePath) var _ExplorerAddressBarPath: NodePath
 
 onready var _ExplorerAddressBar: ExplorerAddressBar = get_node(_ExplorerAddressBarPath) as ExplorerAddressBar
@@ -19,6 +22,8 @@ func _update_files() -> bool:
 	cdda_directory.path = _ExplorerAddressBar.path
 
 	_scan_files(cdda_directory, _SearchBar.text)
+	emit_signal("files_updated")
+
 	return true
 
 
@@ -46,14 +51,17 @@ func _scan_files_in_dir(directory: FileSystemItem, parent_in_tree: TreeItem, rec
 
 			var new_item: TreeItem = _FileTree.create_item(parent_in_tree)
 			new_item.set_text(0, json_file)
+			new_item.set_metadata(0, directory.path.plus_file(json_file))
 
 	if recursive:
 
 		for sub_dir in sub_dirs:
 
 			var new_dir: TreeItem = _FileTree.create_item(parent_in_tree)
+
 			new_dir.set_text(0, sub_dir)
 			new_dir.set_icon(0, preload("res://file_nav/directory_icon.png"))
+			new_dir.set_metadata(0, directory.path.plus_file(sub_dir))
 
 			var sub_dir_has_json = _scan_files_in_dir(directory.get_child(sub_dir), new_dir, true, filter)
 
@@ -78,4 +86,12 @@ func _on_NavTreeSearch_text_changed(new_text):
 func _on_UpdateDelay_timeout():
 
 	_update_files()
+
+
+func _on_FileTree_item_selected():
+
+	var file: FileSystemItem = FileSystemItem.new()
+	file.path = _FileTree.get_selected().get_metadata(0)
+
+	emit_signal("file_selected", file)
 

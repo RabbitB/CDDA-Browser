@@ -68,6 +68,7 @@ stretch_mode = 5
 [node name="UpdateDelay" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+[connection signal="item_selected" from="FileTree" to="." method="_on_FileTree_item_selected"]
 [connection signal="text_changed" from="FileTreeControls/SearchLineEdit" to="." method="_on_NavTreeSearch_text_changed" flags=3]
 [connection signal="pressed" from="FileTreeControls/ExpandAllButton" to="FileTree" method="_on_ExpandAllButton_pressed"]
 [connection signal="pressed" from="FileTreeControls/CollapseAllButton" to="FileTree" method="_on_CollapseAllButton_pressed"]

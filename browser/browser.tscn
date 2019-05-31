@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://alien.tres" type="Theme" id=1]
 [ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=3]
+[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=4]
 
 [node name="Browser" type="VBoxContainer"]
 anchor_right = 1.0
@@ -29,42 +30,48 @@ margin_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LeftSplit" type="VBoxContainer" parent="HSplitContainer"]
-margin_right = 393.0
-margin_bottom = 568.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSplitContainer" type="HSplitContainer" parent="HSplitContainer/LeftSplit"]
-margin_right = 393.0
-margin_bottom = 568.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="FileNav" parent="HSplitContainer/LeftSplit/HSplitContainer" instance=ExtResource( 3 )]
+[node name="FileNav" parent="HSplitContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 192.0
-margin_bottom = 568.0
-_ExplorerAddressBarPath = NodePath("../../../../ExplorerAddressBar")
-
-[node name="FilterTree" type="Tree" parent="HSplitContainer/LeftSplit/HSplitContainer"]
-margin_left = 200.0
 margin_right = 393.0
 margin_bottom = 568.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+_ExplorerAddressBarPath = NodePath("../../ExplorerAddressBar")
 
-[node name="RightSplit" type="VBoxContainer" parent="HSplitContainer"]
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
 margin_left = 401.0
 margin_right = 794.0
 margin_bottom = 568.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tab_align = 0
 
-[node name="ResultTree" type="Tree" parent="HSplitContainer/RightSplit"]
-margin_right = 393.0
-margin_bottom = 568.0
+[node name="Raw JSON" type="Tabs" parent="HSplitContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="RawJsonViewer" type="TextEdit" parent="HSplitContainer/TabContainer/Raw JSON"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/LeftSplit/HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
+readonly = true
+syntax_highlighting = true
+show_line_numbers = true
+smooth_scrolling = true
+hiding_enabled = 1
+script = ExtResource( 4 )
+
+[node name="Game Data" type="Tabs" parent="HSplitContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
+[connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Raw JSON/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
