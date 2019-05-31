@@ -46,7 +46,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
 
-[node name="Raw JSON" type="Tabs" parent="HSplitContainer/TabContainer"]
+[node name="Raw File" type="Tabs" parent="HSplitContainer/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -54,7 +54,7 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="RawJsonViewer" type="TextEdit" parent="HSplitContainer/TabContainer/Raw JSON"]
+[node name="RawJsonViewer" type="TextEdit" parent="HSplitContainer/TabContainer/Raw File"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -66,7 +66,7 @@ smooth_scrolling = true
 hiding_enabled = 1
 script = ExtResource( 4 )
 
-[node name="Game Data" type="Tabs" parent="HSplitContainer/TabContainer"]
+[node name="JSON" type="Tabs" parent="HSplitContainer/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,7 +75,7 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="DataViewer" parent="HSplitContainer/TabContainer/Game Data" instance=ExtResource( 5 )]
+[node name="DataViewer" parent="HSplitContainer/TabContainer/JSON" instance=ExtResource( 5 )]
 [connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
-[connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Raw JSON/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
-[connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Game Data/DataViewer" method="_on_FileNav_file_selected" flags=3]
+[connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Raw File/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
+[connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/JSON/DataViewer" method="_on_FileNav_file_selected" flags=3]
