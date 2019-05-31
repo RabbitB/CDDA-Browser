@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://data_viewer/sort_order/sort_order.gd" type="Script" id=1]
+[ext_resource path="res://file_nav/expand_all/expand_all.png" type="Texture" id=2]
+[ext_resource path="res://file_nav/expand_all/expand_all_down.png" type="Texture" id=3]
+[ext_resource path="res://file_nav/expand_all/expand_all_hover.png" type="Texture" id=4]
+[ext_resource path="res://file_nav/collapse_all/collapse_all.png" type="Texture" id=5]
+[ext_resource path="res://file_nav/collapse_all/collapse_all_down.png" type="Texture" id=6]
+[ext_resource path="res://file_nav/collapse_all/collapse_all_hover.png" type="Texture" id=7]
+
+[node name="SortOrder" type="HBoxContainer"]
+anchor_right = 1.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="SortLabel" type="Label" parent="."]
+margin_top = 3.0
+margin_right = 25.0
+margin_bottom = 17.0
+text = "Sort"
+align = 2
+valign = 3
+
+[node name="Criteria" type="OptionButton" parent="."]
+margin_left = 29.0
+margin_right = 70.0
+margin_bottom = 20.0
+
+[node name="InLabel" type="Label" parent="."]
+margin_left = 74.0
+margin_top = 3.0
+margin_right = 86.0
+margin_bottom = 17.0
+text = "in"
+align = 2
+valign = 3
+
+[node name="Order" type="OptionButton" parent="."]
+margin_left = 90.0
+margin_right = 238.0
+margin_bottom = 20.0
+text = "Ascending Order"
+items = [ "Ascending Order", null, false, -1, null, "Descending Order", null, false, -1, null ]
+selected = 0
+
+[node name="TreeControls" type="HBoxContainer" parent="."]
+margin_left = 242.0
+margin_right = 800.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="ExpandAllButton" type="TextureButton" parent="TreeControls"]
+margin_left = 522.0
+margin_top = 2.0
+margin_right = 538.0
+margin_bottom = 18.0
+hint_tooltip = "Expand All Containers"
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+enabled_focus_mode = 0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 3 )
+stretch_mode = 5
+
+[node name="CollapseAllButton" type="TextureButton" parent="TreeControls"]
+margin_left = 542.0
+margin_top = 2.0
+margin_right = 558.0
+margin_bottom = 18.0
+hint_tooltip = "Collapse All Containers"
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+enabled_focus_mode = 0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 6 )
+stretch_mode = 5
+[connection signal="pressed" from="TreeControls/ExpandAllButton" to="." method="_on_ExpandAllButton_pressed"]
+[connection signal="pressed" from="TreeControls/CollapseAllButton" to="." method="_on_CollapseAllButton_pressed"]
