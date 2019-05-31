@@ -42,3 +42,5 @@ hide_root = true
 script = ExtResource( 3 )
 [connection signal="collapse_all_pressed" from="SortOrder" to="TreeSplitter/DataTree" method="_on_SortOrder_collapse_all_pressed"]
 [connection signal="expand_all_pressed" from="SortOrder" to="TreeSplitter/DataTree" method="_on_SortOrder_expand_all_pressed"]
+[connection signal="item_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_item_selected"]
+[connection signal="nothing_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_nothing_selected"]
