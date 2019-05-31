@@ -15,18 +15,12 @@ _global_script_classes=[ {
 "path": "res://addons/chino/references/file_system_item.gd"
 }, {
 "base": "Reference",
-"class": "FileSystemTools",
-"language": "GDScript",
-"path": "res://addons/chino/references/file_system_tools.gd"
-}, {
-"base": "Reference",
 "class": "Log",
 "language": "GDScript",
 "path": "res://addons/chino/references/log.gd"
 } ]
 _global_script_class_icons={
 "FileSystemItem": "",
-"FileSystemTools": "",
 "Log": ""
 }
 
