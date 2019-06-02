@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://data_viewer/data_viewer.gd" type="Script" id=1]
-[ext_resource path="res://data_viewer/sort_order/sort_order.tscn" type="PackedScene" id=2]
-[ext_resource path="res://data_viewer/data_tree.gd" type="Script" id=3]
+[ext_resource path="res://data_viewer/viewer_controls/viewer_controls.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/chino/nodes/HSplitRatioContainer.gd" type="Script" id=3]
+[ext_resource path="res://data_viewer/data_tree.gd" type="Script" id=4]
 
 [node name="DataViewer" type="VBoxContainer"]
 anchor_right = 1.0
@@ -10,22 +11,25 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
+group_item_bg_color = Color( 0.243137, 0.262745, 0.282353, 1 )
 
-[node name="SortOrder" parent="." instance=ExtResource( 2 )]
+[node name="ViewerControls" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 margin_right = 800.0
-margin_bottom = 20.0
+margin_bottom = 16.0
 
 [node name="TreeSplitter" type="HSplitContainer" parent="."]
-margin_top = 24.0
+margin_top = 20.0
 margin_right = 800.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 3 )
+b = 2.0
 
 [node name="FilterTree" type="Tree" parent="TreeSplitter"]
 margin_right = 394.0
-margin_bottom = 576.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 hide_folding = true
@@ -34,13 +38,15 @@ hide_root = true
 [node name="DataTree" type="Tree" parent="TreeSplitter"]
 margin_left = 406.0
 margin_right = 800.0
-margin_bottom = 576.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 hide_root = true
-script = ExtResource( 3 )
-[connection signal="collapse_all_pressed" from="SortOrder" to="TreeSplitter/DataTree" method="_on_SortOrder_collapse_all_pressed"]
-[connection signal="expand_all_pressed" from="SortOrder" to="TreeSplitter/DataTree" method="_on_SortOrder_expand_all_pressed"]
+script = ExtResource( 4 )
+[connection signal="view_changed" from="." to="TreeSplitter/DataTree" method="_on_DataViewer_view_changed" flags=3]
+[connection signal="collapse_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_collapse_all_pressed"]
+[connection signal="expand_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_expand_all_pressed"]
+[connection signal="button_pressed" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_button_pressed"]
 [connection signal="item_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_item_selected"]
 [connection signal="nothing_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_nothing_selected"]
