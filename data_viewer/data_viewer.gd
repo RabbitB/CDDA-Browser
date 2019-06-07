@@ -13,6 +13,7 @@ func view_dictionary(data_dict: Dictionary) -> void:
 
 	_DataTree.clear()
 	_append_dictionary("Dictionary", data_dict)
+	
 	emit_signal("view_changed")
 
 
@@ -20,12 +21,15 @@ func view_array(data_array: Array) -> void:
 
 	_DataTree.clear()
 	_append_array("Array", data_array)
+	
 	emit_signal("view_changed")
 
 
 func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem = null) -> void:
 	
 	var new_dict: TreeItem = _DataTree.create_item(parent)
+	new_dict.set_metadata(0, TYPE_DICTIONARY)
+	
 	new_dict.set_text(0, label)
 	new_dict.set_icon(0, preload("res://data_viewer/data_type_icons/dictionary.png"))
 	
@@ -59,6 +63,8 @@ func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem =
 func _append_array(label: String, data_array: Array, parent: TreeItem = null) -> void:
 	
 	var new_array: TreeItem = _DataTree.create_item(parent)
+	new_array.set_metadata(0, TYPE_ARRAY)
+	
 	new_array.set_text(0, label)
 	new_array.set_icon(0, preload("res://data_viewer/data_type_icons/array.png"))
 	
@@ -90,6 +96,8 @@ func _append_array(label: String, data_array: Array, parent: TreeItem = null) ->
 func _append_bool(label: String, value: bool, parent: TreeItem = null) -> void:
 	
 	var new_bool: TreeItem = _DataTree.create_item(parent)
+	new_bool.set_metadata(0, TYPE_BOOL)
+	
 	new_bool.set_text(0, label)
 	new_bool.set_icon(0, preload("res://data_viewer/data_type_icons/bool.png"))
 	new_bool.set_selectable(0, false)
@@ -99,6 +107,8 @@ func _append_bool(label: String, value: bool, parent: TreeItem = null) -> void:
 func _append_number(label: String, value: float, parent: TreeItem = null) -> void:
 	
 	var new_number: TreeItem = _DataTree.create_item(parent)
+	new_number.set_metadata(0, TYPE_REAL)
+	
 	new_number.set_text(0, label)
 	new_number.set_icon(0, preload("res://data_viewer/data_type_icons/numeral.png"))
 	new_number.set_selectable(0, false)
@@ -108,6 +118,8 @@ func _append_number(label: String, value: float, parent: TreeItem = null) -> voi
 func _append_string(label: String, value: String, parent: TreeItem = null) -> void:
 	
 	var new_string: TreeItem = _DataTree.create_item(parent)
+	new_string.set_metadata(0, TYPE_STRING)
+	
 	new_string.set_text(0, label)
 	new_string.set_icon(0, preload("res://data_viewer/data_type_icons/string.png"))
 	new_string.set_selectable(0, false)
