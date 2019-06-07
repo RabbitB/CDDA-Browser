@@ -1,4 +1,5 @@
 extends HBoxContainer
+class_name ExplorerAddressBar
 
 signal path_changed(path, is_path_valid)
 
@@ -34,7 +35,6 @@ func _get_path() -> String:
 func _ready() -> void:
 
 	self.placeholder_text = placeholder_text
-	update_path(OS.get_executable_path().get_base_dir(), true)
 
 
 func update_path(new_path: String, update_ui_text: bool) -> void:
