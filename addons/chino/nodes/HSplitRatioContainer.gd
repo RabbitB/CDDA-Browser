@@ -6,6 +6,7 @@ export (float) var b: float = 1.0 setget _set_b
 
 onready var _is_ready = true
 
+
 func _set_a(part_a: float) -> void:
 
 	a = part_a
