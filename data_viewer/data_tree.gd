@@ -6,6 +6,26 @@ signal search_button_pressed(tree_item, searched_key, searched_value)
 var _previous_selection: TreeItem
 
 
+func scroll_to_item(item: TreeItem, select: bool = false, column: int = 0) -> void:
+
+	var item_is_selectable: bool = item.is_selectable(column)
+	var previously_selected_item: TreeItem = get_selected()
+	var previously_selected_column: int = get_selected_column()
+
+	if !item_is_selectable:
+		item.set_selectable(column, true)
+
+	item.select(column)
+	ensure_cursor_is_visible()
+
+	if !item_is_selectable:
+		item.set_selectable(column, false)
+
+	if !select && previously_selected_item != null:
+		item.deselect(column)
+		previously_selected_item.select(previously_selected_column)
+
+
 func _on_SortOrder_expand_all_pressed() -> void:
 
 	TreeItemHelper.expand_all_children(get_root())
@@ -43,6 +63,7 @@ func _on_DataTree_nothing_selected() -> void:
 func _on_DataViewer_view_changed() -> void:
 
 	_previous_selection = null
+	scroll_to_item(get_root(), false)
 
 
 func _on_DataTree_button_pressed(item: TreeItem, column: int, id: int) -> void:
