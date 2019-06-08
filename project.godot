@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "HBoxContainer",
+"class": "ExplorerAddressBar",
+"language": "GDScript",
+"path": "res://explorer_address_bar/explorer_address_bar.gd"
+}, {
 "base": "Reference",
 "class": "FileSystemItem",
 "language": "GDScript",
@@ -25,14 +30,21 @@ _global_script_classes=[ {
 "path": "res://addons/chino/references/log.gd"
 }, {
 "base": "Reference",
+"class": "ProjectTools",
+"language": "GDScript",
+"path": "res://addons/chino/references/project_tools.gd"
+}, {
+"base": "Reference",
 "class": "TreeItemHelper",
 "language": "GDScript",
 "path": "res://addons/chino/references/tree_item_helper.gd"
 } ]
 _global_script_class_icons={
+"ExplorerAddressBar": "",
 "FileSystemItem": "",
 "HSplitRatioContainer": "",
 "Log": "",
+"ProjectTools": "",
 "TreeItemHelper": ""
 }
 
@@ -42,6 +54,10 @@ config/name="CDDA Browser"
 run/main_scene="res://browser/browser.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
