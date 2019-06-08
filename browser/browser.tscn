@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://alien.tres" type="Theme" id=1]
-[ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=3]
-[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=4]
-[ext_resource path="res://data_viewer/data_viewer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://browser/browser.gd" type="Script" id=2]
+[ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=4]
+[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=5]
+[ext_resource path="res://data_viewer/data_viewer.tscn" type="PackedScene" id=6]
 
 [node name="Browser" type="VBoxContainer"]
 anchor_right = 1.0
@@ -14,8 +15,9 @@ margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -3.0
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
 
-[node name="ExplorerAddressBar" parent="." instance=ExtResource( 2 )]
+[node name="ExplorerAddressBar" parent="." instance=ExtResource( 3 )]
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -31,7 +33,7 @@ margin_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="FileNav" parent="HSplitContainer" instance=ExtResource( 3 )]
+[node name="FileNav" parent="HSplitContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 393.0
@@ -64,7 +66,7 @@ syntax_highlighting = true
 show_line_numbers = true
 smooth_scrolling = true
 hiding_enabled = 1
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="JSON" type="Tabs" parent="HSplitContainer/TabContainer"]
 visible = false
@@ -75,7 +77,26 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="DataViewer" parent="HSplitContainer/TabContainer/JSON" instance=ExtResource( 5 )]
+[node name="DataViewer" parent="HSplitContainer/TabContainer/JSON" instance=ExtResource( 6 )]
+
+[node name="Game Data" type="Tabs" parent="HSplitContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="Item Lookup" type="Tabs" parent="HSplitContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
 [connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
+[connection signal="path_changed" from="ExplorerAddressBar" to="." method="_on_ExplorerAddressBar_path_changed"]
 [connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Raw File/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
 [connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/JSON/DataViewer" method="_on_FileNav_file_selected" flags=3]
