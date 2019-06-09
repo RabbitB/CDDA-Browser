@@ -63,7 +63,7 @@ func _on_DataTree_nothing_selected() -> void:
 func _on_DataViewer_view_changed() -> void:
 
 	_previous_selection = null
-	scroll_to_item(get_root(), false)
+	TreeHelper.scroll_to_item(self, get_root(), false)
 
 
 func _on_DataTree_button_pressed(item: TreeItem, column: int, id: int) -> void:
