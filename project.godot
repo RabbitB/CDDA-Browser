@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://addons/chino/references/log.gd"
 }, {
 "base": "Reference",
+"class": "NodeHelper",
+"language": "GDScript",
+"path": "res://addons/chino/global/node_helper.gd"
+}, {
+"base": "Reference",
 "class": "ProjectTools",
 "language": "GDScript",
 "path": "res://addons/chino/references/project_tools.gd"
@@ -49,6 +54,7 @@ _global_script_class_icons={
 "FileSystemItem": "",
 "HSplitRatioContainer": "",
 "Log": "",
+"NodeHelper": "",
 "ProjectTools": "",
 "TreeHelper": "",
 "TreeItemHelper": ""
