@@ -5,7 +5,6 @@ signal search_button_pressed(tree_item, searched_key, searched_value)
 
 var _items_with_buttons: Array
 
-
 static func get_comparable_path(tree_item: TreeItem) -> Array:
 
 	var comparable_path: Array = []
