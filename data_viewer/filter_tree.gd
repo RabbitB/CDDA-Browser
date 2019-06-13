@@ -5,6 +5,8 @@ const DataViewer: Script = preload("res://data_viewer/data_viewer.gd")
 onready var _DataViewer: DataViewer = $"../.." as DataViewer
 onready var _DataTree: Tree = $"../DataTree" as Tree
 
+var _table_of_contents: TreeItem
+
 
 func crawl_data_tree() -> void:
 
@@ -12,7 +14,10 @@ func crawl_data_tree() -> void:
 	var root = create_item()
 	root.set_text(0, "root")
 
-	_crawl_container(_DataTree.get_root())
+	_table_of_contents = create_item(root)
+	_table_of_contents.set_text(0, "Table of Contents")
+
+	_crawl_container(_DataTree.get_root(), _table_of_contents)
 
 
 func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null):
@@ -46,5 +51,15 @@ func _on_DataViewer_view_changed():
 
 func _on_item_selected():
 
-	TreeHelper.scroll_to_item(_DataTree, get_selected().get_metadata(0)["linked_item"], true, 1, TreeHelper.ScrollPlacement.ON_TOP)
+	var metadata: Dictionary = get_selected().get_metadata(0)
+
+	if !metadata:
+		return
+
+	var linked_item: TreeItem = metadata.get("linked_item")
+
+	if !linked_item:
+		return
+
+	TreeHelper.scroll_to_item(_DataTree, linked_item, true, 1, TreeHelper.ScrollPlacement.ON_TOP)
 
