@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://data_viewer/data_viewer.gd" type="Script" id=1]
 [ext_resource path="res://data_viewer/viewer_controls/viewer_controls.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/chino/nodes/HSplitRatioContainer.gd" type="Script" id=3]
-[ext_resource path="res://data_viewer/data_tree.gd" type="Script" id=4]
+[ext_resource path="res://addons/chino/nodes/h_split_ratio_container.gd" type="Script" id=3]
+[ext_resource path="res://data_viewer/filter_tree.gd" type="Script" id=4]
+[ext_resource path="res://data_viewer/data_tree.gd" type="Script" id=5]
 
 [node name="DataViewer" type="VBoxContainer"]
 anchor_right = 1.0
@@ -34,6 +35,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 hide_folding = true
 hide_root = true
+script = ExtResource( 4 )
 
 [node name="DataTree" type="Tree" parent="TreeSplitter"]
 margin_left = 406.0
@@ -43,10 +45,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 hide_root = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
+[connection signal="view_changed" from="." to="TreeSplitter/FilterTree" method="_on_DataViewer_view_changed" flags=3]
 [connection signal="view_changed" from="." to="TreeSplitter/DataTree" method="_on_DataViewer_view_changed" flags=3]
 [connection signal="collapse_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_collapse_all_pressed"]
 [connection signal="expand_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_expand_all_pressed"]
+[connection signal="item_selected" from="TreeSplitter/FilterTree" to="TreeSplitter/FilterTree" method="_on_item_selected"]
 [connection signal="button_pressed" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_button_pressed"]
 [connection signal="item_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_item_selected"]
 [connection signal="nothing_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_nothing_selected"]
