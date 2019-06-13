@@ -96,7 +96,7 @@ margin_left = 5.0
 margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
-[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
 [connection signal="path_changed" from="ExplorerAddressBar" to="." method="_on_ExplorerAddressBar_path_changed"]
+[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
 [connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/Raw File/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
 [connection signal="file_selected" from="HSplitContainer/FileNav" to="HSplitContainer/TabContainer/JSON/DataViewer" method="_on_FileNav_file_selected" flags=3]
