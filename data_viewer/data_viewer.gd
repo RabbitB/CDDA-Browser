@@ -45,7 +45,7 @@ func view_array(data_array: Array) -> void:
 func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem = null) -> void:
 
 	var new_dict: TreeItem = _DataTree.create_item(parent)
-	new_dict.set_metadata(0, TYPE_DICTIONARY)
+	new_dict.set_metadata(0, { "type": TYPE_DICTIONARY })
 
 	new_dict.set_text(0, label)
 	new_dict.set_icon(0, _ICONS[TYPE_DICTIONARY])
@@ -76,7 +76,7 @@ func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem =
 func _append_array(label: String, data_array: Array, parent: TreeItem = null) -> void:
 
 	var new_array: TreeItem = _DataTree.create_item(parent)
-	new_array.set_metadata(0, TYPE_ARRAY)
+	new_array.set_metadata(0, { "type": TYPE_ARRAY })
 
 	new_array.set_text(0, label)
 	new_array.set_icon(0, _ICONS[TYPE_ARRAY])
@@ -106,7 +106,7 @@ func _append_item(label: String, value, parent: TreeItem = null) -> void:
 
 	var item_type = typeof(value)
 	var new_item: TreeItem = _DataTree.create_item(parent)
-	new_item.set_metadata(0, item_type)
+	new_item.set_metadata(0, { "type": item_type })
 
 	new_item.set_text(0, label)
 	new_item.set_icon(0, _ICONS[item_type])

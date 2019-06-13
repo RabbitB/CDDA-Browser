@@ -16,7 +16,7 @@ static func get_comparable_path(tree_item: TreeItem) -> Array:
 
 	while parent:
 
-		if parent.get_metadata(0) == TYPE_ARRAY:
+		if parent.get_metadata(0)["type"] == TYPE_ARRAY:
 			comparable_path.push_front("array_item")
 		else:
 			comparable_path.push_front(tree_item.get_text(0))

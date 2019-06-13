@@ -26,7 +26,9 @@ func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null):
 
 	while child:
 
-		if child.get_metadata(0) == TYPE_DICTIONARY || child.get_metadata(0) == TYPE_ARRAY:
+		var child_type: int = child.get_metadata(0)["type"]
+
+		if child_type == TYPE_DICTIONARY || child_type == TYPE_ARRAY:
 			_crawl_container(child, new_container)
 
 		child = child.get_next()
