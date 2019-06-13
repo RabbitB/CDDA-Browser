@@ -3,27 +3,27 @@ extends Tree
 signal sort_button_pressed(tree_item, sorted_key)
 signal search_button_pressed(tree_item, searched_key, searched_value)
 
-var _previous_selection: TreeItem
+var _wr_previous_selection: WeakRef
 
 
-func scroll_to_item(item: TreeItem, select: bool = false, column: int = 0) -> void:
+static func get_comparable_path(tree_item: TreeItem) -> Array:
 
-	var item_is_selectable: bool = item.is_selectable(column)
-	var previously_selected_item: TreeItem = get_selected()
-	var previously_selected_column: int = get_selected_column()
+	var comparable_path: Array = []
+	var parent: TreeItem = tree_item.get_parent()
 
-	if !item_is_selectable:
-		item.set_selectable(column, true)
+	if !parent:
+		return [tree_item.get_text(0)]
 
-	item.select(column)
-	ensure_cursor_is_visible()
+	while parent:
 
-	if !item_is_selectable:
-		item.set_selectable(column, false)
+		if parent.get_metadata(0) == TYPE_ARRAY:
+			comparable_path.push_front("array_item")
+		else:
+			comparable_path.push_front(tree_item.get_text(0))
 
-	if !select && previously_selected_item != null:
-		item.deselect(column)
-		previously_selected_item.select(previously_selected_column)
+		parent = tree_item.get_parent()
+
+	return comparable_path
 
 
 func _on_SortOrder_expand_all_pressed() -> void:
@@ -38,9 +38,12 @@ func _on_SortOrder_collapse_all_pressed() -> void:
 
 func _on_DataTree_item_selected() -> void:
 
+	var _previous_selection: TreeItem = _wr_previous_selection.get_ref() if _wr_previous_selection else null
+
 	if _previous_selection:
-		_previous_selection.erase_button(0, 0)
-		_previous_selection.erase_button(1, 0)
+
+			_previous_selection.erase_button(0, 0)
+			_previous_selection.erase_button(1, 0)
 
 	var selected_item: TreeItem = get_selected()
 
@@ -48,21 +51,23 @@ func _on_DataTree_item_selected() -> void:
 
 		selected_item.add_button(0, preload("res://data_viewer/sort.png"), -1, false, "Sort entries by this key")
 		selected_item.add_button(1, preload("res://data_viewer/search.png"), -1, false, "Search entries for matching value")
-		_previous_selection = selected_item
+		_wr_previous_selection = weakref(selected_item)
 
 
 func _on_DataTree_nothing_selected() -> void:
+
+	var _previous_selection: TreeItem = _wr_previous_selection.get_ref() if _wr_previous_selection else null
 
 	if _previous_selection:
 		_previous_selection.erase_button(0, 0)
 		_previous_selection.erase_button(1, 0)
 
-	_previous_selection = null
+	_wr_previous_selection = null
 
 
 func _on_DataViewer_view_changed() -> void:
 
-	_previous_selection = null
+	_wr_previous_selection = null
 	TreeHelper.scroll_to_item(self, get_root(), false)
 
 
