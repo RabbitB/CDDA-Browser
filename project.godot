@@ -22,12 +22,12 @@ _global_script_classes=[ {
 "base": "HSplitContainer",
 "class": "HSplitRatioContainer",
 "language": "GDScript",
-"path": "res://addons/chino/nodes/HSplitRatioContainer.gd"
+"path": "res://addons/chino/nodes/h_split_ratio_container.gd"
 }, {
 "base": "Reference",
 "class": "Log",
 "language": "GDScript",
-"path": "res://addons/chino/references/log.gd"
+"path": "res://addons/chino/global/log.gd"
 }, {
 "base": "Reference",
 "class": "NodeHelper",
@@ -37,17 +37,17 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ProjectTools",
 "language": "GDScript",
-"path": "res://addons/chino/references/project_tools.gd"
+"path": "res://addons/chino/global/project_tools.gd"
 }, {
 "base": "Reference",
 "class": "TreeHelper",
 "language": "GDScript",
-"path": "res://addons/chino/references/tree_helper.gd"
+"path": "res://addons/chino/global/tree_helper.gd"
 }, {
 "base": "Reference",
 "class": "TreeItemHelper",
 "language": "GDScript",
-"path": "res://addons/chino/references/tree_item_helper.gd"
+"path": "res://addons/chino/global/tree_item_helper.gd"
 } ]
 _global_script_class_icons={
 "ExplorerAddressBar": "",
