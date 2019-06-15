@@ -35,6 +35,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 hide_root = true
 script = ExtResource( 4 )
+group_item_bg_color = Color( 0.0941176, 0.105882, 0.121569, 1 )
 
 [node name="DataTree" type="Tree" parent="TreeSplitter"]
 margin_left = 406.0
@@ -45,11 +46,14 @@ size_flags_vertical = 3
 columns = 2
 hide_root = true
 script = ExtResource( 5 )
-[connection signal="view_changed" from="." to="TreeSplitter/FilterTree" method="_on_DataViewer_view_changed" flags=3]
 [connection signal="view_changed" from="." to="TreeSplitter/DataTree" method="_on_DataViewer_view_changed" flags=3]
+[connection signal="view_changed" from="." to="TreeSplitter/FilterTree" method="_on_DataViewer_view_changed" flags=3]
 [connection signal="collapse_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_collapse_all_pressed"]
 [connection signal="expand_all_pressed" from="ViewerControls" to="TreeSplitter/DataTree" method="_on_SortOrder_expand_all_pressed"]
+[connection signal="button_pressed" from="TreeSplitter/FilterTree" to="TreeSplitter/FilterTree" method="_on_button_pressed" flags=3]
 [connection signal="item_selected" from="TreeSplitter/FilterTree" to="TreeSplitter/FilterTree" method="_on_item_selected"]
 [connection signal="button_pressed" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_button_pressed"]
+[connection signal="filter_button_pressed" from="TreeSplitter/DataTree" to="TreeSplitter/FilterTree" method="_on_DataTree_filter_button_pressed" flags=3]
 [connection signal="item_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_item_selected"]
 [connection signal="nothing_selected" from="TreeSplitter/DataTree" to="TreeSplitter/DataTree" method="_on_DataTree_nothing_selected"]
+[connection signal="sort_button_pressed" from="TreeSplitter/DataTree" to="TreeSplitter/FilterTree" method="_on_DataTree_sort_button_pressed" flags=3]
