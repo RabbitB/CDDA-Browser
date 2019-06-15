@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://alien.tres" type="Theme" id=1]
 [ext_resource path="res://browser/browser.gd" type="Script" id=2]
 [ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=4]
-[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=5]
-[ext_resource path="res://data_viewer/data_viewer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/chino/nodes/h_split_ratio_container.gd" type="Script" id=4]
+[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=5]
+[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=6]
+[ext_resource path="res://data_viewer/data_viewer.tscn" type="PackedScene" id=7]
 
 [node name="Browser" type="VBoxContainer"]
 anchor_right = 1.0
@@ -32,8 +33,10 @@ margin_right = 794.0
 margin_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 4 )
+b = 2.0
 
-[node name="FileNav" parent="HSplitContainer" instance=ExtResource( 4 )]
+[node name="FileNav" parent="HSplitContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 393.0
@@ -66,7 +69,7 @@ syntax_highlighting = true
 show_line_numbers = true
 smooth_scrolling = true
 hiding_enabled = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="JSON" type="Tabs" parent="HSplitContainer/TabContainer"]
 visible = false
@@ -77,7 +80,7 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="DataViewer" parent="HSplitContainer/TabContainer/JSON" instance=ExtResource( 6 )]
+[node name="DataViewer" parent="HSplitContainer/TabContainer/JSON" instance=ExtResource( 7 )]
 
 [node name="Game Data" type="Tabs" parent="HSplitContainer/TabContainer"]
 visible = false
