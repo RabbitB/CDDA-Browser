@@ -1,9 +1,10 @@
 extends Tree
 
-signal sort_button_pressed(tree_item, sorted_key)
-signal search_button_pressed(tree_item, searched_key, searched_value)
+signal sort_button_pressed(tree_item)
+signal filter_button_pressed(tree_item)
 
 var _items_with_buttons: Array
+
 
 static func get_comparable_path(tree_item: TreeItem) -> Array:
 
@@ -20,6 +21,7 @@ static func get_comparable_path(tree_item: TreeItem) -> Array:
 		else:
 			comparable_path.push_front(tree_item.get_text(0))
 
+		tree_item = parent
 		parent = tree_item.get_parent()
 
 	return comparable_path
@@ -32,7 +34,7 @@ func _add_buttons_to_item(tree_item: TreeItem) -> void:
 		return
 
 	tree_item.add_button(0, preload("res://data_viewer/sort.png"), -1, false, "Sort entries by this key")
-	tree_item.add_button(1, preload("res://data_viewer/search.png"), -1, false, "Search entries for matching value")
+	tree_item.add_button(1, preload("res://data_viewer/search.png"), -1, false, "Filter entries by this value")
 
 	_items_with_buttons.append(weakref(tree_item))
 
@@ -93,7 +95,7 @@ func _on_DataViewer_view_changed() -> void:
 func _on_DataTree_button_pressed(item: TreeItem, column: int, id: int) -> void:
 
 	if column == 0:
-		emit_signal("sort_button_pressed", item, item.get_text(0))
+		emit_signal("sort_button_pressed", item)
 	elif column == 1:
-		emit_signal("search_button_pressed", item, item.get_text(0), item.get_text(1))
+		emit_signal("filter_button_pressed", item)
 
