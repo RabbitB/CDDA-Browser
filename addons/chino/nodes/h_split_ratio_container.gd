@@ -30,6 +30,9 @@ func _ready():
 	self.connect("resized", self, "_on_resized")
 	self.connect("dragged", self, "_on_dragged")
 
+	_normalize_ratio()
+	_split_with_ratio(a, b)
+
 
 func _get_normalized_ratio(part_a: float, part_b: float) -> Vector2:
 
