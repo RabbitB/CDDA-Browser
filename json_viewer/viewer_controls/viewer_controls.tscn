@@ -1,12 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://data_viewer/viewer_controls/viewer_controls.gd" type="Script" id=1]
+[ext_resource path="res://json_viewer/viewer_controls/viewer_controls.gd" type="Script" id=1]
 [ext_resource path="res://file_nav/expand_all/expand_all.png" type="Texture" id=2]
 [ext_resource path="res://file_nav/expand_all/expand_all_down.png" type="Texture" id=3]
 [ext_resource path="res://file_nav/expand_all/expand_all_hover.png" type="Texture" id=4]
 [ext_resource path="res://file_nav/collapse_all/collapse_all.png" type="Texture" id=5]
 [ext_resource path="res://file_nav/collapse_all/collapse_all_down.png" type="Texture" id=6]
 [ext_resource path="res://file_nav/collapse_all/collapse_all_hover.png" type="Texture" id=7]
+
 
 [node name="ViewerControls" type="HBoxContainer"]
 anchor_right = 1.0

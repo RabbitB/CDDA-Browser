@@ -1,18 +1,18 @@
 extends VBoxContainer
 
 const _ICONS = {
-	TYPE_DICTIONARY: preload("res://data_viewer/data_type_icons/dictionary.png"),
-	TYPE_ARRAY: preload("res://data_viewer/data_type_icons/array.png"),
-	TYPE_BOOL: preload("res://data_viewer/data_type_icons/bool.png"),
-	TYPE_REAL: preload("res://data_viewer/data_type_icons/numeral.png"),
-	TYPE_STRING: preload("res://data_viewer/data_type_icons/string.png")
+	TYPE_DICTIONARY: preload("res://json_viewer/data_type_icons/dictionary.png"),
+	TYPE_ARRAY: preload("res://json_viewer/data_type_icons/array.png"),
+	TYPE_BOOL: preload("res://json_viewer/data_type_icons/bool.png"),
+	TYPE_REAL: preload("res://json_viewer/data_type_icons/numeral.png"),
+	TYPE_STRING: preload("res://json_viewer/data_type_icons/string.png")
 }
 
 signal view_changed
 
 export (Color) var group_item_bg_color: Color = Color(0)
 
-onready var _DataTree: Tree = $TreeSplitter/Data/Tree as Tree
+onready var _JsonTree: Tree = $TreeSplitter/Json/Tree as Tree
 
 var _json_data
 
@@ -26,7 +26,7 @@ func view_dictionary(data_dict: Dictionary) -> void:
 
 	_json_data = data_dict
 
-	_DataTree.clear()
+	_JsonTree.clear()
 	_append_dictionary("Dictionary", data_dict)
 
 	emit_signal("view_changed")
@@ -36,7 +36,7 @@ func view_array(data_array: Array) -> void:
 
 	_json_data = data_array
 
-	_DataTree.clear()
+	_JsonTree.clear()
 	_append_array("Array", data_array)
 
 	emit_signal("view_changed")
@@ -44,7 +44,7 @@ func view_array(data_array: Array) -> void:
 
 func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem = null) -> void:
 
-	var new_dict: TreeItem = _DataTree.create_item(parent)
+	var new_dict: TreeItem = _JsonTree.create_item(parent)
 	new_dict.set_metadata(0, { "type": TYPE_DICTIONARY })
 
 	new_dict.set_text(0, label)
@@ -75,7 +75,7 @@ func _append_dictionary(label: String, data_dict: Dictionary, parent: TreeItem =
 
 func _append_array(label: String, data_array: Array, parent: TreeItem = null) -> void:
 
-	var new_array: TreeItem = _DataTree.create_item(parent)
+	var new_array: TreeItem = _JsonTree.create_item(parent)
 	new_array.set_metadata(0, { "type": TYPE_ARRAY })
 
 	new_array.set_text(0, label)
@@ -105,7 +105,7 @@ func _append_array(label: String, data_array: Array, parent: TreeItem = null) ->
 func _append_item(label: String, value, parent: TreeItem = null) -> void:
 
 	var item_type = typeof(value)
-	var new_item: TreeItem = _DataTree.create_item(parent)
+	var new_item: TreeItem = _JsonTree.create_item(parent)
 	new_item.set_metadata(0, { "type": item_type })
 
 	new_item.set_text(0, label)

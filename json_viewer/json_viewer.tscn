@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://data_viewer/data_viewer.gd" type="Script" id=1]
+[ext_resource path="res://json_viewer/json_viewer.gd" type="Script" id=1]
 [ext_resource path="res://addons/chino/nodes/h_split_ratio_container.gd" type="Script" id=2]
-[ext_resource path="res://data_viewer/viewer_controls/viewer_controls.tscn" type="PackedScene" id=3]
-[ext_resource path="res://data_viewer/filter_tree.gd" type="Script" id=4]
-[ext_resource path="res://data_viewer/data_tree.gd" type="Script" id=5]
+[ext_resource path="res://json_viewer/viewer_controls/viewer_controls.tscn" type="PackedScene" id=3]
+[ext_resource path="res://json_viewer/filter_tree.gd" type="Script" id=4]
+[ext_resource path="res://json_viewer/json_tree.gd" type="Script" id=5]
 
-[node name="DataViewer" type="VBoxContainer"]
+[node name="JsonViewer" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -43,19 +43,19 @@ hide_root = true
 script = ExtResource( 4 )
 group_item_bg_color = Color( 0.0941176, 0.105882, 0.121569, 1 )
 
-[node name="Data" type="VBoxContainer" parent="TreeSplitter"]
+[node name="Json" type="VBoxContainer" parent="TreeSplitter"]
 margin_left = 406.0
 margin_right = 800.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TreeControls" parent="TreeSplitter/Data" instance=ExtResource( 3 )]
+[node name="TreeControls" parent="TreeSplitter/Json" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 394.0
 margin_bottom = 16.0
 
-[node name="Tree" type="Tree" parent="TreeSplitter/Data"]
+[node name="Tree" type="Tree" parent="TreeSplitter/Json"]
 margin_top = 20.0
 margin_right = 394.0
 margin_bottom = 600.0
@@ -64,16 +64,16 @@ size_flags_vertical = 3
 columns = 2
 hide_root = true
 script = ExtResource( 5 )
-[connection signal="view_changed" from="." to="TreeSplitter/Data/Tree" method="_on_DataViewer_view_changed" flags=3]
-[connection signal="view_changed" from="." to="TreeSplitter/Filter/Tree" method="_on_DataViewer_view_changed" flags=3]
+[connection signal="view_changed" from="." to="TreeSplitter/Filter/Tree" method="_on_JsonViewer_view_changed" flags=3]
+[connection signal="view_changed" from="." to="TreeSplitter/Json/Tree" method="_on_JsonViewer_view_changed" flags=3]
 [connection signal="collapse_all_pressed" from="TreeSplitter/Filter/TreeControls" to="TreeSplitter/Filter/Tree" method="_on_TreeControls_collapse_all_pressed"]
 [connection signal="expand_all_pressed" from="TreeSplitter/Filter/TreeControls" to="TreeSplitter/Filter/Tree" method="_on_TreeControls_expand_all_pressed"]
 [connection signal="button_pressed" from="TreeSplitter/Filter/Tree" to="TreeSplitter/Filter/Tree" method="_on_button_pressed" flags=3]
 [connection signal="item_selected" from="TreeSplitter/Filter/Tree" to="TreeSplitter/Filter/Tree" method="_on_item_selected"]
-[connection signal="collapse_all_pressed" from="TreeSplitter/Data/TreeControls" to="TreeSplitter/Data/Tree" method="_on_SortOrder_collapse_all_pressed"]
-[connection signal="expand_all_pressed" from="TreeSplitter/Data/TreeControls" to="TreeSplitter/Data/Tree" method="_on_SortOrder_expand_all_pressed"]
-[connection signal="button_pressed" from="TreeSplitter/Data/Tree" to="TreeSplitter/Data/Tree" method="_on_DataTree_button_pressed"]
-[connection signal="filter_button_pressed" from="TreeSplitter/Data/Tree" to="TreeSplitter/Filter/Tree" method="_on_DataTree_filter_button_pressed" flags=3]
-[connection signal="item_selected" from="TreeSplitter/Data/Tree" to="TreeSplitter/Data/Tree" method="_on_DataTree_item_selected"]
-[connection signal="nothing_selected" from="TreeSplitter/Data/Tree" to="TreeSplitter/Data/Tree" method="_on_DataTree_nothing_selected"]
-[connection signal="sort_button_pressed" from="TreeSplitter/Data/Tree" to="TreeSplitter/Filter/Tree" method="_on_DataTree_sort_button_pressed" flags=3]
+[connection signal="collapse_all_pressed" from="TreeSplitter/Json/TreeControls" to="TreeSplitter/Json/Tree" method="_on_SortOrder_collapse_all_pressed"]
+[connection signal="expand_all_pressed" from="TreeSplitter/Json/TreeControls" to="TreeSplitter/Json/Tree" method="_on_SortOrder_expand_all_pressed"]
+[connection signal="button_pressed" from="TreeSplitter/Json/Tree" to="TreeSplitter/Json/Tree" method="_on_JsonTree_button_pressed"]
+[connection signal="filter_button_pressed" from="TreeSplitter/Json/Tree" to="TreeSplitter/Filter/Tree" method="_on_JsonTree_filter_button_pressed" flags=3]
+[connection signal="item_selected" from="TreeSplitter/Json/Tree" to="TreeSplitter/Json/Tree" method="_on_JsonTree_item_selected"]
+[connection signal="nothing_selected" from="TreeSplitter/Json/Tree" to="TreeSplitter/Json/Tree" method="_on_JsonTree_nothing_selected"]
+[connection signal="sort_button_pressed" from="TreeSplitter/Json/Tree" to="TreeSplitter/Filter/Tree" method="_on_JsonTree_sort_button_pressed" flags=3]

@@ -33,8 +33,8 @@ func _add_buttons_to_item(tree_item: TreeItem) -> void:
 	if item_type == TYPE_DICTIONARY || item_type == TYPE_ARRAY || tree_item.get_children() != null:
 		return
 
-	tree_item.add_button(0, preload("res://data_viewer/sort.png"), -1, false, "Sort entries by this key")
-	tree_item.add_button(1, preload("res://data_viewer/search.png"), -1, false, "Filter entries by this value")
+	tree_item.add_button(0, preload("res://json_viewer/button_icons/sort.png"), -1, false, "Sort entries by this key")
+	tree_item.add_button(1, preload("res://json_viewer/button_icons/search.png"), -1, false, "Filter entries by this value")
 
 	_items_with_buttons.append(weakref(tree_item))
 
@@ -73,7 +73,7 @@ func _on_SortOrder_collapse_all_pressed() -> void:
 	TreeItemHelper.collapse_all_children(get_root(), false)
 
 
-func _on_DataTree_item_selected() -> void:
+func _on_JsonTree_item_selected() -> void:
 
 	_clear_all_buttons()
 
@@ -81,18 +81,18 @@ func _on_DataTree_item_selected() -> void:
 	_add_buttons_to_item(selected_item)
 
 
-func _on_DataTree_nothing_selected() -> void:
+func _on_JsonTree_nothing_selected() -> void:
 
 	_clear_all_buttons()
 
 
-func _on_DataViewer_view_changed() -> void:
+func _on_JsonViewer_view_changed() -> void:
 
 	_clear_all_buttons()
 	TreeHelper.scroll_to_top(self)
 
 
-func _on_DataTree_button_pressed(item: TreeItem, column: int, id: int) -> void:
+func _on_JsonTree_button_pressed(item: TreeItem, column: int, id: int) -> void:
 
 	if column == 0:
 		emit_signal("sort_button_pressed", item)
