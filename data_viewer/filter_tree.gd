@@ -27,7 +27,7 @@ func crawl_data_tree() -> void:
 	_crawl_container(_DataTree.get_root(), _table_of_contents)
 
 
-func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null):
+func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null) -> void:
 
 	var new_container: TreeItem = create_item(parent)
 	new_container.set_text(0, container_to_crawl.get_text(0))
@@ -136,12 +136,12 @@ func _get_group_item_name(item: TreeItem) -> String:
 	return name
 
 
-func _on_DataViewer_view_changed():
+func _on_DataViewer_view_changed() -> void:
 
 	crawl_data_tree()
 
 
-func _on_item_selected():
+func _on_item_selected() -> void:
 
 	var metadata: Dictionary = get_selected().get_metadata(0)
 
@@ -156,7 +156,7 @@ func _on_item_selected():
 	TreeHelper.scroll_to_item(_DataTree, linked_item, true, 1, TreeHelper.ScrollPlacement.ON_TOP)
 
 
-func _on_DataTree_filter_button_pressed(tree_item: TreeItem):
+func _on_DataTree_filter_button_pressed(tree_item: TreeItem) -> void:
 
 	var filter_group: TreeItem = create_item(_filters)
 	filter_group.set_text(0, _get_group_name(tree_item))
@@ -174,7 +174,7 @@ func _on_DataTree_filter_button_pressed(tree_item: TreeItem):
 		new_filter_entry.set_metadata(0, { "linked_item": item })
 
 
-func _on_DataTree_sort_button_pressed(tree_item):
+func _on_DataTree_sort_button_pressed(tree_item) -> void:
 
 	var sort_group: TreeItem = create_item(_sorted)
 	sort_group.set_text(0, _get_group_name(tree_item))
@@ -190,7 +190,7 @@ func _on_DataTree_sort_button_pressed(tree_item):
 		new_entry.set_metadata(0, { "linked_item": item })
 
 
-func _on_button_pressed(item: TreeItem, column: int, id: int):
+func _on_button_pressed(item: TreeItem, column: int, id: int) -> void:
 
 #	The only button we have on items in the filter tree, is the remove button.
 	item.free()
