@@ -5,8 +5,8 @@ const DataTree: Script = preload("res://data_viewer/data_tree.gd")
 
 export (Color) var group_item_bg_color: Color = Color(0)
 
-onready var _DataViewer: DataViewer = $"../.." as DataViewer
-onready var _DataTree: Tree = $"../DataTree" as DataTree
+onready var _DataViewer: DataViewer = $"../../.." as DataViewer
+onready var _DataTree: Tree = $"../../Data/Tree" as DataTree
 
 var _table_of_contents: TreeItem
 var _filters: TreeItem
@@ -153,6 +153,7 @@ func _on_item_selected() -> void:
 	if !linked_item:
 		return
 
+	TreeItemHelper.expand_all_ancestors(linked_item)
 	TreeHelper.scroll_to_item(_DataTree, linked_item, true, 1, TreeHelper.ScrollPlacement.ON_TOP)
 
 
@@ -194,4 +195,14 @@ func _on_button_pressed(item: TreeItem, column: int, id: int) -> void:
 
 #	The only button we have on items in the filter tree, is the remove button.
 	item.free()
+
+
+func _on_TreeControls_collapse_all_pressed():
+
+	TreeItemHelper.collapse_all_children(get_root(), false)
+
+
+func _on_TreeControls_expand_all_pressed():
+
+	TreeItemHelper.expand_all_children(get_root())
 

@@ -12,7 +12,7 @@ signal view_changed
 
 export (Color) var group_item_bg_color: Color = Color(0)
 
-onready var _DataTree: Tree = $TreeSplitter/DataTree as Tree
+onready var _DataTree: Tree = $TreeSplitter/Data/Tree as Tree
 
 var _json_data
 
