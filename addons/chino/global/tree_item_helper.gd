@@ -2,6 +2,17 @@ extends Reference
 class_name TreeItemHelper
 
 
+static func expand_all_ancestors(tree_item: TreeItem) -> void:
+
+	tree_item.collapsed = false
+
+	var parent: TreeItem = tree_item.get_parent()
+	while parent:
+
+		parent.collapsed = false
+		parent = parent.get_parent()
+
+
 static func expand_all_children(tree_item: TreeItem) -> void:
 
 	tree_item.collapsed = false
