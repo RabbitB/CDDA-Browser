@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gear_down.png-67be46112ab7731e1745cfa9a02d8d32.stex"
+path="res://.import/gear_down.png-20b0a1cc13be07f3918c52bbe7dd4a23.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gear/gear_down.png"
-dest_files=[ "res://.import/gear_down.png-67be46112ab7731e1745cfa9a02d8d32.stex" ]
+source_file="res://shared_icons/gear/gear_down.png"
+dest_files=[ "res://.import/gear_down.png-20b0a1cc13be07f3918c52bbe7dd4a23.stex" ]
 
 [params]
 

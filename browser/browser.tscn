@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://alien.tres" type="Theme" id=1]
 [ext_resource path="res://browser/browser.gd" type="Script" id=2]
 [ext_resource path="res://explorer_address_bar/explorer_address_bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/chino/nodes/h_split_ratio_container.gd" type="Script" id=4]
-[ext_resource path="res://file_nav/file_nav.tscn" type="PackedScene" id=5]
-[ext_resource path="res://browser/ViewTabs.gd" type="Script" id=6]
-[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=7]
-[ext_resource path="res://json_viewer/json_viewer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://nav_trees/generic_nav.tscn" type="PackedScene" id=5]
+[ext_resource path="res://nav_trees/file_nav.gd" type="Script" id=6]
+[ext_resource path="res://nav_trees/category_nav.gd" type="Script" id=7]
+[ext_resource path="res://browser/view_tabs.gd" type="Script" id=8]
+[ext_resource path="res://browser/raw_json_viewer.gd" type="Script" id=9]
+[ext_resource path="res://json_viewer/json_viewer.tscn" type="PackedScene" id=10]
 
 [node name="Browser" type="VBoxContainer"]
 anchor_right = 1.0
@@ -54,6 +56,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="FileNav" parent="HSplitContainer/ContextTabs/Files" instance=ExtResource( 5 )]
+script = ExtResource( 6 )
 _ExplorerAddressBarPath = NodePath("../../../../ExplorerAddressBar")
 
 [node name="Categories" type="Tabs" parent="HSplitContainer/ContextTabs"]
@@ -65,6 +68,9 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
+[node name="CategoryNav" parent="HSplitContainer/ContextTabs/Categories" instance=ExtResource( 5 )]
+script = ExtResource( 7 )
+
 [node name="ViewTabs" type="TabContainer" parent="HSplitContainer"]
 margin_left = 401.0
 margin_right = 794.0
@@ -72,7 +78,7 @@ margin_bottom = 568.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 
 [node name="Raw File" type="Tabs" parent="HSplitContainer/ViewTabs"]
 anchor_right = 1.0
@@ -82,7 +88,7 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="RawJsonViewer" type="TextEdit" parent="HSplitContainer/ViewTabs/Raw File"]
+[node name="RawTextViewer" type="TextEdit" parent="HSplitContainer/ViewTabs/Raw File"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -92,7 +98,7 @@ syntax_highlighting = true
 show_line_numbers = true
 smooth_scrolling = true
 hiding_enabled = 1
-script = ExtResource( 7 )
+script = ExtResource( 9 )
 
 [node name="JSON" type="Tabs" parent="HSplitContainer/ViewTabs"]
 visible = false
@@ -103,7 +109,7 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="JsonViewer" parent="HSplitContainer/ViewTabs/JSON" instance=ExtResource( 8 )]
+[node name="JsonViewer" parent="HSplitContainer/ViewTabs/JSON" instance=ExtResource( 10 )]
 
 [node name="Game Data" type="Tabs" parent="HSplitContainer/ViewTabs"]
 visible = false
@@ -123,7 +129,6 @@ margin_top = 29.0
 margin_right = -5.0
 margin_bottom = -5.0
 [connection signal="path_changed" from="ExplorerAddressBar" to="." method="_on_ExplorerAddressBar_path_changed"]
-[connection signal="path_changed" from="ExplorerAddressBar" to="HSplitContainer/ContextTabs/Files/FileNav" method="_on_ExplorerAddressBar_path_changed" flags=3]
-[connection signal="file_selected" from="HSplitContainer/ContextTabs/Files/FileNav" to="HSplitContainer/ViewTabs/Raw File/RawJsonViewer" method="_on_FileNav_file_selected" flags=3]
-[connection signal="file_selected" from="HSplitContainer/ContextTabs/Files/FileNav" to="HSplitContainer/ViewTabs/JSON/JsonViewer" method="_on_FileNav_file_selected" flags=3]
+[connection signal="nav_item_selected" from="HSplitContainer/ContextTabs/Files/FileNav" to="HSplitContainer/ViewTabs/JSON/JsonViewer" method="_on_FileNav_nav_item_selected" flags=3]
+[connection signal="nav_item_selected" from="HSplitContainer/ContextTabs/Files/FileNav" to="HSplitContainer/ViewTabs/Raw File/RawTextViewer" method="_on_FileNav_nav_item_selected" flags=3]
 [connection signal="tab_changed" from="HSplitContainer/ViewTabs" to="HSplitContainer/ViewTabs" method="_on_tab_changed"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://nav_trees/generic_nav.gd" type="Script" id=1]
+[ext_resource path="res://nav_trees/nav_tree.gd" type="Script" id=2]
+[ext_resource path="res://shared_icons/expand_all/expand_all.png" type="Texture" id=3]
+[ext_resource path="res://shared_icons/expand_all/expand_all_down.png" type="Texture" id=4]
+[ext_resource path="res://shared_icons/expand_all/expand_all_hover.png" type="Texture" id=5]
+[ext_resource path="res://shared_icons/collapse_all/collapse_all.png" type="Texture" id=6]
+[ext_resource path="res://shared_icons/collapse_all/collapse_all_down.png" type="Texture" id=7]
+[ext_resource path="res://shared_icons/collapse_all/collapse_all_hover.png" type="Texture" id=8]
+
+[node name="Nav" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="NavTree" type="Tree" parent="."]
+margin_right = 800.0
+margin_bottom = 572.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+hide_root = true
+script = ExtResource( 2 )
+
+[node name="TreeControls" type="HBoxContainer" parent="."]
+margin_top = 576.0
+margin_right = 800.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="SearchLine" type="LineEdit" parent="TreeControls"]
+margin_right = 760.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+clear_button_enabled = true
+placeholder_text = "Search"
+caret_blink = true
+
+[node name="ExpandAllButton" type="TextureButton" parent="TreeControls"]
+margin_left = 764.0
+margin_top = 4.0
+margin_right = 780.0
+margin_bottom = 20.0
+hint_tooltip = "Expand All Directories"
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 4 )
+stretch_mode = 5
+
+[node name="CollapseAllButton" type="TextureButton" parent="TreeControls"]
+margin_left = 784.0
+margin_top = 4.0
+margin_right = 800.0
+margin_bottom = 20.0
+hint_tooltip = "Collapse All Directories"
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 7 )
+stretch_mode = 5
+
+[node name="UpdateDelay" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+[connection signal="item_selected" from="NavTree" to="." method="_on_Tree_item_selected"]
+[connection signal="text_changed" from="TreeControls/SearchLine" to="." method="_on_SearchLine_text_changed" flags=3]
+[connection signal="pressed" from="TreeControls/ExpandAllButton" to="NavTree" method="_on_ExpandAllButton_pressed"]
+[connection signal="pressed" from="TreeControls/CollapseAllButton" to="NavTree" method="_on_CollapseAllButton_pressed"]
+[connection signal="timeout" from="UpdateDelay" to="." method="_on_UpdateDelay_timeout"]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/expand_all_down.png-0810df15b05783bfc7e7aa1164a37b4c.stex"
+path="res://.import/collapse_all.png-5328dee375ea125c388acf78b786f134.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://file_nav/expand_all/expand_all_down.png"
-dest_files=[ "res://.import/expand_all_down.png-0810df15b05783bfc7e7aa1164a37b4c.stex" ]
+source_file="res://shared_icons/collapse_all/collapse_all.png"
+dest_files=[ "res://.import/collapse_all.png-5328dee375ea125c388acf78b786f134.stex" ]
 
 [params]
 

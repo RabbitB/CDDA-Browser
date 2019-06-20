@@ -18,7 +18,7 @@ var _json_data
 
 
 func get_json():
-	
+
 	return _json_data
 
 
@@ -114,17 +114,17 @@ func _append_item(label: String, value, parent: TreeItem = null) -> void:
 	new_item.set_text(1, str(value))
 
 
-func _on_FileNav_file_selected(selected_file: FileSystemItem):
+func _on_FileNav_nav_item_selected(selected_item: FileSystemItem) -> void:
 
-	if !selected_file.is_file():
+	if !selected_item.is_file():
 		return
 
-	_json_data = selected_file.read_as_json()
+	_json_data = selected_item.read_as_json()
 
 	if typeof(_json_data) == TYPE_ARRAY:
 		view_array(_json_data as Array)
 	elif typeof(_json_data) == TYPE_DICTIONARY:
 		view_dictionary(_json_data as Dictionary)
 	else:
-		Log.error("Encountered error when parsing json file '%s'; root data type is not array or dictionary.", [selected_file.path])
+		Log.error("Encountered error when parsing json file '%s'; root data type is not array or dictionary.", [selected_item.path])
 

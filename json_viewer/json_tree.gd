@@ -63,12 +63,12 @@ func _clear_all_buttons() -> void:
 	_items_with_buttons.clear()
 
 
-func _on_SortOrder_expand_all_pressed() -> void:
+func _on_TreeControls_expand_all_pressed() -> void:
 
 	TreeItemHelper.expand_all_children(get_root())
 
 
-func _on_SortOrder_collapse_all_pressed() -> void:
+func _on_TreeControls_collapse_all_pressed() -> void:
 
 	TreeItemHelper.collapse_all_children(get_root(), false)
 

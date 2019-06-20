@@ -1,8 +1,8 @@
 extends TextEdit
 
 
-func _on_FileNav_file_selected(selected_file: FileSystemItem):
+func _on_FileNav_nav_item_selected(selected_item: FileSystemItem) -> void:
 
-	if selected_file.is_file():
-		text = selected_file.read_as_text()
+	if selected_item.is_file():
+		text = selected_item.read_as_text()
 
