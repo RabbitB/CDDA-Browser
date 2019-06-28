@@ -64,8 +64,9 @@ size_flags_vertical = 3
 columns = 2
 hide_root = true
 script = ExtResource( 5 )
-[connection signal="view_changed" from="." to="TreeSplitter/Filter/Tree" method="_on_JsonViewer_view_changed" flags=3]
-[connection signal="view_changed" from="." to="TreeSplitter/Json/Tree" method="_on_JsonViewer_view_changed" flags=3]
+[connection signal="finished_loading_view" from="." to="TreeSplitter/Filter/Tree" method="_on_JsonViewer_finished_loading_view"]
+[connection signal="started_loading_view" from="." to="TreeSplitter/Filter/Tree" method="_on_JsonViewer_started_loading_view"]
+[connection signal="started_loading_view" from="." to="TreeSplitter/Json/Tree" method="_on_JsonViewer_started_loading_view"]
 [connection signal="collapse_all_pressed" from="TreeSplitter/Filter/TreeControls" to="TreeSplitter/Filter/Tree" method="_on_TreeControls_collapse_all_pressed"]
 [connection signal="expand_all_pressed" from="TreeSplitter/Filter/TreeControls" to="TreeSplitter/Filter/Tree" method="_on_TreeControls_expand_all_pressed"]
 [connection signal="button_pressed" from="TreeSplitter/Filter/Tree" to="TreeSplitter/Filter/Tree" method="_on_button_pressed" flags=3]

@@ -86,7 +86,7 @@ func _on_JsonTree_nothing_selected() -> void:
 	_clear_all_buttons()
 
 
-func _on_JsonViewer_view_changed() -> void:
+func _on_JsonViewer_started_loading_view() -> void:
 
 	_clear_all_buttons()
 	TreeHelper.scroll_to_top(self)

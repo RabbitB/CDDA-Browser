@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var _ExplorerAddressBar: ExplorerAddressBar = $ExplorerAddressBar as ExplorerAddressBar
+onready var _ExplorerAddressBar: ExplorerAddressBar = $TopBar/ExplorerAddressBar as ExplorerAddressBar
 
 var config_file_path: String = "user://config.ini"
 var cdda_install_dir: String

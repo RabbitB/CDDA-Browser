@@ -136,8 +136,11 @@ func _get_group_item_name(item: TreeItem) -> String:
 	return name
 
 
-func _on_JsonViewer_view_changed() -> void:
+func _on_JsonViewer_started_loading_view():
+	clear()
 
+
+func _on_JsonViewer_finished_loading_view() -> void:
 	crawl_json_tree()
 
 

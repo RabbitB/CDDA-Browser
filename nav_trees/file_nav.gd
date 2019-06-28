@@ -6,9 +6,12 @@ export (NodePath) var _ExplorerAddressBarPath: NodePath
 
 onready var _ExplorerAddressBar: ExplorerAddressBar = get_node(_ExplorerAddressBarPath) as ExplorerAddressBar
 
+var _cdda_directory_path: String
+var _local_to_global_path_lookup: Dictionary = {}
+
 
 func _ready() -> void:
-	
+
 	_ExplorerAddressBar.connect("path_changed", self, "_on_ExplorerAddressBar_path_changed")
 
 
@@ -18,7 +21,10 @@ func _update_nav() -> bool:
 		return false
 
 	var cdda_directory: FileSystemItem = FileSystemItem.new()
-	cdda_directory.path = _ExplorerAddressBar.path
+
+	#	This ensures the path always has a path seperator at the end.
+	cdda_directory.path = _ExplorerAddressBar.path.plus_file("")
+	_cdda_directory_path = cdda_directory.path
 
 	_scan_files(cdda_directory, _SearchBar.text)
 	emit_signal("nav_content_updated")
@@ -31,7 +37,7 @@ func _scan_files(files: FileSystemItem, filter: String = "") -> void:
 	_NavTree.clear()
 
 	var root_item = _NavTree.create_item()
-	root_item.set_text(0, "CDDA")
+	root_item.set_text(0, "CDDA Installation Dir")
 
 	_scan_files_in_dir(files, root_item, true, filter)
 
@@ -46,11 +52,14 @@ func _scan_files_in_dir(directory: FileSystemItem, parent_in_tree: TreeItem, rec
 
 		if filter.empty() || json_file.findn(filter) != -1:
 
+			var global_path: String = directory.path.plus_file(json_file)
 			json_files_found = true
 
 			var new_item: TreeItem = _NavTree.create_item(parent_in_tree)
 			new_item.set_text(0, json_file)
-			new_item.set_metadata(0, directory.path.plus_file(json_file))
+			new_item.set_metadata(0, global_path)
+
+			_local_to_global_path_lookup[global_path.right(_cdda_directory_path.length())] = global_path
 
 	if recursive:
 
