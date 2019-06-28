@@ -29,11 +29,6 @@ func crawl_json_tree() -> void:
 
 func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null) -> void:
 
-	var new_container: TreeItem = create_item(parent)
-	new_container.set_text(0, container_to_crawl.get_text(0))
-	new_container.set_icon(0, container_to_crawl.get_icon(0))
-	new_container.set_metadata(0, { "linked_item": container_to_crawl })
-
 	var child: TreeItem = container_to_crawl.get_children()
 
 	while child:
@@ -41,6 +36,12 @@ func _crawl_container(container_to_crawl: TreeItem, parent: TreeItem = null) -> 
 		var child_type: int = child.get_metadata(0)["type"]
 
 		if child_type == TYPE_DICTIONARY || child_type == TYPE_ARRAY:
+
+			var new_container: TreeItem = create_item(parent)
+			new_container.set_text(0, child.get_text(0))
+			new_container.set_icon(0, child.get_icon(0))
+			new_container.set_metadata(0, { "linked_item": child })
+
 			_crawl_container(child, new_container)
 
 		child = child.get_next()
