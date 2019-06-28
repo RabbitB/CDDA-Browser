@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/chino/global/log.gd"
 }, {
+"base": "Container",
+"class": "Node2DContainer",
+"language": "GDScript",
+"path": "res://addons/chino/nodes/node_2d_container.gd"
+}, {
 "base": "Reference",
 "class": "NodeHelper",
 "language": "GDScript",
@@ -54,6 +59,7 @@ _global_script_class_icons={
 "FileSystemItem": "",
 "HSplitRatioContainer": "",
 "Log": "",
+"Node2DContainer": "",
 "NodeHelper": "",
 "ProjectTools": "",
 "TreeHelper": "",
@@ -65,6 +71,9 @@ _global_script_class_icons={
 config/name="CDDA Browser"
 run/main_scene="res://browser/browser.tscn"
 run/low_processor_mode=true
+boot_splash/image="res://clear_color.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
 config/icon="res://icon.png"
 
 [debug]
